@@ -49,6 +49,19 @@ public:
   typedef ListIterator<T> iterator;
   typedef ListConstIterator<T> const_iterator;
 
+  List():
+    m_size{0},  
+    m_first{nullptr},
+    m_last{nullptr}{}
+
+  bool empty() const{
+    return size() == 0;
+  }
+
+  std::size_t size() const{
+    return m_size;
+  }
+
   friend class ListIterator<T>;
   friend class ListConstIterator<T>;
 // not implemented yet
@@ -57,11 +70,5 @@ private:
   ListNode<T>* m_first = nullptr;
   ListNode<T>* m_last = nullptr;
 };
-
-List();
-
-bool empty() const;
-
-std::size_t size() const;
 
 #endif //#define BUW_LIST_HPP
