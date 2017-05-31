@@ -62,6 +62,34 @@ public:
     return m_size;
   }
 
+  void push_front(T const& x){
+    if(empt()){
+      ListNode<T> n = new ListNode<T>(x, nullptr, nullptr);
+      m_first = n;
+      m_last = n;
+    }else{
+      ListNode<T> n = new ListNode<T>(x, nullptr, m_first);
+      m_first -> m_prev = n;
+      m_first = n;
+    }
+    ++m_size; 
+  }
+
+  void push_back(T const& x){
+    if(empt()){
+      ListNode<T> n = new ListNode<T>(x, nullptr, nullptr);
+      m_first = n;
+      m_last = n;
+    }else{
+      ListNode<T> n = new ListNode<T>(x, m_last, nullptr);
+      m_last -> m_next = n;
+      m_last = n;
+    }
+    ++m_size;
+  }
+
+
+
   friend class ListIterator<T>;
   friend class ListConstIterator<T>;
 // not implemented yet
