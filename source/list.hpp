@@ -42,20 +42,26 @@ class List
 {
 public:
   typedef T value_type;
-  typedef T * pointer;
-  typedef const T * const_pointer;
-  typedef T & reference;
+  typedef T* pointer;
+  typedef const T* const_pointer;
+  typedef T& reference;
   typedef const T& const_reference;
-  typedef ListIterator <T> iterator;
-  typedef ListConstIterator <T> const_iterator;
-  
-  friend class ListIterator <T>;
-  friend class ListConstIterator <T>;
+  typedef ListIterator<T> iterator;
+  typedef ListConstIterator<T> const_iterator;
+
+  friend class ListIterator<T>;
+  friend class ListConstIterator<T>;
 // not implemented yet
 private:
   std::size_t m_size = 0;
-  ListNode <T>* m_first = nullptr;
-  ListNode <T>* m_last = nullptr;
+  ListNode<T>* m_first = nullptr;
+  ListNode<T>* m_last = nullptr;
 };
+
+List();
+
+bool empty() const;
+
+std::size_t size() const;
 
 #endif //#define BUW_LIST_HPP
