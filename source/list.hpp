@@ -192,6 +192,15 @@ public:
       pop_front();
     }
   }
+  
+  iterator begin() const{
+    return ListIterator<T>(m_first);
+  }
+
+  iterator end() const{
+    return ListIterator<T>();
+  }
+
 
 
   friend class ListIterator<T>;
@@ -202,5 +211,31 @@ private:
   ListNode<T>* m_first = nullptr;
   ListNode<T>* m_last = nullptr;
 };
+
+template<typename T>
+bool operator==(List<T> const& xs, List<T> const& ys) {
+  ListIterator<T> x = xs.begin();
+  ListIterator<T> y = ys.begin();
+  if(xs.size() == ys.size()){
+    unsigned int z = 0;
+    while(z < xs.size()){
+      if(*x == *y){
+        ++x;
+        ++y;
+        ++z;
+      }else{
+        return false;
+      }
+    }
+    return true;
+  }else{
+    return false;
+  }
+}
+
+template<typename T>
+bool operator!=(List<T> const& xs, List<T> const& ys) {
+  return !(xs == ys);
+}
 
 #endif //#define BUW_LIST_HPP
