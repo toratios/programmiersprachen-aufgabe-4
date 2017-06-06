@@ -21,10 +21,59 @@ struct ListNode
 template <typename T>
 struct ListIterator
 {
+  typedef ListIterator<T> Self;
+
+  typedef T value_type;
+  typedef T* pointer;
+  typedef T& reference;
+  typedef ptrdiff_t difference_type;
+  typedef std::forward_iterator_tag iterator_category;
+
   friend class List <T>;
-  // not implemented yet
+
+  ListIterator():
+    m_node(nullptr) {}
+
+  ListIterator(ListNode<T>* n):
+    m_node(n) {}
+
+  reference operator*() const {
+    return m_node -> m_value;
+  }
+
+  pointer operator->() const {
+    return *m_node;
+  }
+
+  Self& operator++() {
+    m_node = m_node -> m_next;
+    return *this;
+  }
+
+  Self operator++(int) {
+    Self temp = *this;
+    ++(*this);
+    return temp;
+  }
+
+  bool operator==(const Self& x) const {
+    return m_node == x.m_node;
+  }
+
+  bool operator!=(const Self& x) const {
+    return m_node != x.m_node;
+  }
+
+  Self next() const {
+    if (m_node)
+      return ListIterator (m_node -> m_next);
+    else
+      return ListIterator (nullptr);
+  }
+
 private:
-  ListNode <T>* m_node = nullptr;
+  // The Node the iterator is pointing to
+  ListNode<T>* m_node = nullptr;
 };
 
 template <typename T>
