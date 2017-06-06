@@ -54,6 +54,10 @@ public:
     m_first{nullptr},
     m_last{nullptr}{}
 
+  ~List(){
+    clear();
+  }
+
   bool empty() const{
     return size() == 0;
   }
@@ -131,6 +135,12 @@ public:
       temp -> m_next = nullptr;
       m_last = temp;
       --m_size;
+    }
+  }
+
+  void clear(){
+    while(!empty()){
+      pop_front();
     }
   }
 
