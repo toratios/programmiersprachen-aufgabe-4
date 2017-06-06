@@ -62,13 +62,21 @@ public:
     return m_size;
   }
 
+  T const& front() const{
+    return m_first -> m_value;
+  }
+
+  T const& back() const{
+    return m_last -> m_value;
+  }
+
   void push_front(T const& x){
-    if(empt()){
-      ListNode<T> n = new ListNode<T>(x, nullptr, nullptr);
+    if(empty()){
+      ListNode<T>* n = new ListNode<T>(x, nullptr, nullptr);
       m_first = n;
       m_last = n;
     }else{
-      ListNode<T> n = new ListNode<T>(x, nullptr, m_first);
+      ListNode<T>* n = new ListNode<T>(x, nullptr, m_first);
       m_first -> m_prev = n;
       m_first = n;
     }
@@ -76,18 +84,55 @@ public:
   }
 
   void push_back(T const& x){
-    if(empt()){
-      ListNode<T> n = new ListNode<T>(x, nullptr, nullptr);
+    if(empty()){
+      ListNode<T>* n = new ListNode<T>(x, nullptr, nullptr);
       m_first = n;
       m_last = n;
     }else{
-      ListNode<T> n = new ListNode<T>(x, m_last, nullptr);
+      ListNode<T>* n = new ListNode<T>(x, m_last, nullptr);
       m_last -> m_next = n;
       m_last = n;
     }
     ++m_size;
   }
 
+  void pop_front(){
+    if(m_size == 0){
+      std::cout << "empty list!";
+    }
+    if(m_size == 1){
+      delete m_first;
+      m_first = nullptr;
+      m_last = nullptr;
+      --m_size;
+    }
+    if(m_size > 1){
+      auto temp = m_first -> m_next;
+      delete m_first;
+      temp -> m_prev = nullptr;
+      m_first = temp;
+      --m_size;
+    }
+  }
+
+  void pop_back(){
+    if(m_size == 0){
+      std::cout << "empty list!";
+    }
+    if(m_size == 1){
+      delete m_first;
+      m_first = nullptr;
+      m_last = nullptr;
+      --m_size;
+    }
+    if(m_size > 1){
+      auto temp = m_last -> m_prev;
+      delete m_last;
+      temp -> m_next = nullptr;
+      m_last = temp;
+      --m_size;
+    }
+  }
 
 
   friend class ListIterator<T>;
