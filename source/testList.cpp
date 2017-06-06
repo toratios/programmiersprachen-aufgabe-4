@@ -84,15 +84,23 @@ TEST_CASE("provide acces to the last element with end", "[iterators]"){
 
 TEST_CASE("== and != operator", "[operators]"){
 	List<int> l1;
+  List<int> l2;
+  List<int> l3;
+
+  REQUIRE(l1 == l2);
+
   l1.push_front(1);
 	l1.push_front(42);
-  List<int> l2;
   l2.push_front(1);
 	l2.push_front(42);
+
 	REQUIRE(l1 == l2);
+
   l1.push_front(5);
   l2.push_front(4);
+
   REQUIRE(l1 != l2);
+  REQUIRE(l1 != l3);
 }
 
 TEST_CASE("copy constructor", "[constructor]"){
@@ -103,6 +111,16 @@ TEST_CASE("copy constructor", "[constructor]"){
   list.push_front(4);
   List<int>list2{list};
   REQUIRE(list == list2);
+}
+
+TEST_CASE("insert", "[insert]"){
+  List<int>list;
+  list.push_front(1);
+  list.push_front(2);
+  list.push_front(3);
+  list.push_front(4);
+  list.insert(++list.begin(), 5);
+  REQUIRE(list.size() == 5);  
 }
 
 int main(int argc, char *argv[])

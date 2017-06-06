@@ -103,6 +103,15 @@ public:
     m_first{nullptr},
     m_last{nullptr}{}
 
+  List(List const& list):
+    m_size{0},
+    m_first{nullptr},
+    m_last{nullptr}{
+      for (auto l = list.begin(); l != list.end(); ++l){
+				push_back(*l);
+      }
+    }
+
   ~List(){
     clear();
   }
@@ -201,6 +210,13 @@ public:
     return ListIterator<T>();
   }
 
+  iterator insert(iterator pos, T const& data){
+    ListNode<T>* node = new ListNode<T>(data, pos.m_node -> m_prev, pos.m_node);
+    pos.m_node -> m_prev -> m_next = node;
+    pos.m_node -> m_prev = node;
+    ++m_size;
+    return iterator(node);
+  }
 
 
   friend class ListIterator<T>;
