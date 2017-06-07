@@ -64,6 +64,8 @@ struct ListIterator
     return m_node != x.m_node;
   }
 
+
+
   Self next() const {
     if (m_node)
       return ListIterator (m_node -> m_next);
@@ -223,6 +225,11 @@ public:
 			std::swap(i -> m_prev, i -> m_next);
 		}
 		std::swap(m_first, m_last);
+  }
+
+  List<T> operator=(List<T> list){
+    swap(list);
+    return *this;
   }
 
 

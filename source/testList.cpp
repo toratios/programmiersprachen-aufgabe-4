@@ -176,6 +176,19 @@ TEST_CASE("copy list to vector", "[copy]"){
 	}
 }
 
+TEST_CASE("optional =", "[reverse]"){
+	List<int> list1;
+	list1.push_front(1);
+	list1.push_front(2);
+	list1.push_front(3);
+	list1.push_front(4);
+  list1.push_front(5);
+	List<int> list2 = list1;
+	REQUIRE(list2 == list1);
+  list1.clear();
+  REQUIRE(!list2.empty());
+}
+
 
 int main(int argc, char *argv[])
 {
