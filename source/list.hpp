@@ -124,7 +124,6 @@ public:
     }
 
   
-
   ~List(){
     clear();
   }
