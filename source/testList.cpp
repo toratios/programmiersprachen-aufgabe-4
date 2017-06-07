@@ -118,7 +118,14 @@ TEST_CASE("insert", "[insert]"){
   list.push_front(3);
   list.push_front(4);
   list.insert(++list.begin(), 5);
-  REQUIRE(list.size() == 5);  
+  List<int>list2;
+  list2.push_front(1);
+  list2.push_front(2);
+  list2.push_front(3);
+  list2.push_front(5);
+  list2.push_front(4);
+  REQUIRE(list.size() == 5);
+  REQUIRE(list == list2);  
 }
 
 
@@ -152,6 +159,21 @@ TEST_CASE("reverse free", "[reverse]"){
 	list2.push_front(2);
 	list2.push_front(1);
 	REQUIRE(list2 == list1);
+}
+
+TEST_CASE("copy list to vector", "[copy]"){
+	List<int> list;
+	list.push_front(1);
+	list.push_front(2);
+	list.push_front(3);
+	list.push_front(4);
+	std::vector<int> vec (list.size());
+	std::copy(std::begin(list), std::end(list), std::begin(vec));
+	int i = 4;
+	for (auto v : vec){
+		REQUIRE(i == v);
+		--i;
+	}
 }
 
 
