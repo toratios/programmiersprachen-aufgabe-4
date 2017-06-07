@@ -33,7 +33,6 @@ TEST_CASE ("remove an element with pop_front", "[modifiers]")
   l.pop_front();
   REQUIRE (33 == l.front ());
   l.pop_front();
-  l.pop_front();
   REQUIRE(l.size() == 0);
 }
 
@@ -44,7 +43,6 @@ TEST_CASE ("remove an element with pop_back", "[modifiers]")
   l.push_back(42);
   l.pop_back();
   REQUIRE (33 == l.back ());
-  l.pop_back();
   l.pop_back();
   REQUIRE(l.size() == 0);
 }
@@ -122,6 +120,40 @@ TEST_CASE("insert", "[insert]"){
   list.insert(++list.begin(), 5);
   REQUIRE(list.size() == 5);  
 }
+
+
+TEST_CASE("reverse member", "[reverse]"){
+	List<int> list;
+	list.push_front(1);
+	list.push_front(2);
+	list.push_front(3);
+	list.push_front(4);
+	list.reverse();
+  List<int> list2;
+  list2.push_front(4);
+	list2.push_front(3);
+	list2.push_front(2);
+	list2.push_front(1);
+	REQUIRE(list2 == list);
+}
+
+TEST_CASE("reverse free", "[reverse]"){
+	List<int> list;
+	list.push_front(1);
+	list.push_front(2);
+	list.push_front(3);
+	list.push_front(4);
+  list.push_front(5);
+	List<int> list1 = reverse(list);
+  List<int> list2;
+  list2.push_front(5);
+  list2.push_front(4);
+	list2.push_front(3);
+	list2.push_front(2);
+	list2.push_front(1);
+	REQUIRE(list2 == list1);
+}
+
 
 int main(int argc, char *argv[])
 {

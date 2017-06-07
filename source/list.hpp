@@ -218,6 +218,13 @@ public:
     return iterator(node);
   }
 
+  void reverse(){
+    for (auto i = m_first; i != nullptr; i = i-> m_prev){
+			std::swap(i -> m_prev, i -> m_next);
+		}
+		std::swap(m_first, m_last);
+  }
+
 
   friend class ListIterator<T>;
   friend class ListConstIterator<T>;
@@ -247,6 +254,12 @@ bool operator==(List<T> const& xs, List<T> const& ys) {
   }else{
     return false;
   }
+}
+
+template<typename T>
+List<T> reverse(List<T> list){
+  list.reverse();
+  return list;
 }
 
 template<typename T>
