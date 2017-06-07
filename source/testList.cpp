@@ -9,7 +9,7 @@ TEST_CASE ("constructor, size, empty", "[aufgabe 4.2]")
   REQUIRE (l.size() == 0);
 }
 
-TEST_CASE ("add an element with push_front", "[modifiers]")
+TEST_CASE ("add an element with push_front", "[aufgabe 4.3]")
 {
   List<int> l;
   l.push_front(33);
@@ -17,7 +17,7 @@ TEST_CASE ("add an element with push_front", "[modifiers]")
   REQUIRE (42 == l.front ());
 }
 
-TEST_CASE ("add an element with push_back", "[modifiers]")
+TEST_CASE ("add an element with push_back", "[aufgabe 4.3]")
 {
   List<int> l;
   l.push_back(33);
@@ -25,7 +25,7 @@ TEST_CASE ("add an element with push_back", "[modifiers]")
   REQUIRE (42 == l.back ());
 }
 
-TEST_CASE ("remove an element with pop_front", "[modifiers]")
+TEST_CASE ("remove an element with pop_front", "[aufgabe 4.3]")
 {
   List<int> l;
   l.push_front(33);
@@ -36,7 +36,7 @@ TEST_CASE ("remove an element with pop_front", "[modifiers]")
   REQUIRE(l.size() == 0);
 }
 
-TEST_CASE ("remove an element with pop_back", "[modifiers]")
+TEST_CASE ("remove an element with pop_back", "[aufgabe 4.3]")
 {
   List<int> l;
   l.push_back(33);
@@ -47,7 +47,7 @@ TEST_CASE ("remove an element with pop_back", "[modifiers]")
   REQUIRE(l.size() == 0);
 }
 
-TEST_CASE ("should be empty after clearing", "[modifiers]")
+TEST_CASE ("should be empty after clearing", "[aufgabe 4.4]")
 {
   List<int>list;
   list.push_front(1);
@@ -58,14 +58,14 @@ TEST_CASE ("should be empty after clearing", "[modifiers]")
   REQUIRE(list.empty());
 }
 
-TEST_CASE("should be an empty range after default construction", "[iterators]"){
+TEST_CASE("should be an empty range after default construction", "[aufgabe 4.6]"){
 	List<int> list;
 	auto b = list.begin();
 	auto e = list.end();
 	REQUIRE(b==e);
 }
 
-TEST_CASE("provide acces to the first element with begin", "[iterators]"){
+TEST_CASE("provide acces to the first element with begin", "[aufgabe 4.6]"){
 	List<int> list;
   list.push_front(1);
 	list.push_front(42);
@@ -80,7 +80,7 @@ TEST_CASE("provide acces to the last element with end", "[iterators]"){
 	REQUIRE(nullptr == *list.end());
 }*/
 
-TEST_CASE("== and != operator", "[operators]"){
+TEST_CASE("== and != operator", "[aufgabe 4.7]"){
 	List<int> l1;
   List<int> l2;
   List<int> l3;
@@ -101,7 +101,7 @@ TEST_CASE("== and != operator", "[operators]"){
   REQUIRE(l1 != l3);
 }
 
-TEST_CASE("copy constructor", "[constructor]"){
+TEST_CASE("copy constructor", "[aufgabe 4.8]"){
   List<int>list;
   list.push_front(1);
   list.push_front(2);
@@ -111,7 +111,7 @@ TEST_CASE("copy constructor", "[constructor]"){
   REQUIRE(list == list2);
 }
 
-TEST_CASE("insert", "[insert]"){
+TEST_CASE("insert", "[aufgabe 4.9]"){
   List<int>list;
   list.push_front(1);
   list.push_front(2);
@@ -129,7 +129,7 @@ TEST_CASE("insert", "[insert]"){
 }
 
 
-TEST_CASE("reverse member", "[reverse]"){
+TEST_CASE("reverse member", "[aufgabe 4.10]"){
 	List<int> list;
 	list.push_front(1);
 	list.push_front(2);
@@ -144,7 +144,7 @@ TEST_CASE("reverse member", "[reverse]"){
 	REQUIRE(list2 == list);
 }
 
-TEST_CASE("reverse free", "[reverse]"){
+TEST_CASE("reverse free", "[aufgabe 4.10]"){
 	List<int> list;
 	list.push_front(1);
 	list.push_front(2);
@@ -161,7 +161,7 @@ TEST_CASE("reverse free", "[reverse]"){
 	REQUIRE(list2 == list1);
 }
 
-TEST_CASE("copy list to vector", "[copy]"){
+TEST_CASE("copy list to vector", "[aufgabe 4.11]"){
 	List<int> list;
 	list.push_front(1);
 	list.push_front(2);
@@ -176,7 +176,7 @@ TEST_CASE("copy list to vector", "[copy]"){
 	}
 }
 
-TEST_CASE("optional =", "[reverse]"){
+TEST_CASE("optional =", "[aufgabe 4.12]"){
 	List<int> list1;
 	list1.push_front(1);
 	list1.push_front(2);
@@ -189,7 +189,7 @@ TEST_CASE("optional =", "[reverse]"){
   REQUIRE(!list2.empty());
 }
 
-TEST_CASE ("move constructor", "[constructor]")
+TEST_CASE ("move constructor", "[aufgabe 4.13]")
 {
   List<int> list;
   list.push_front(1);
