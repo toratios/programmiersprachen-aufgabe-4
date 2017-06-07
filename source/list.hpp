@@ -114,6 +114,17 @@ public:
       }
     }
 
+  List<T>(List<T> && list):
+    m_size(list.m_size),
+    m_first(list.m_first),
+    m_last(list.m_last){
+      list.m_size = 0;
+      list.m_first = nullptr;
+      list.m_last = nullptr;
+    }
+
+  
+
   ~List(){
     clear();
   }
@@ -227,7 +238,7 @@ public:
 		std::swap(m_first, m_last);
   }
 
-  List<T> operator=(List<T> list){
+  List<T>& operator=(List<T> list){
     swap(list);
     return *this;
   }
