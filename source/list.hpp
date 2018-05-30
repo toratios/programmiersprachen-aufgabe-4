@@ -3,8 +3,6 @@
 #include <cstddef>
 
 // List.hpp
-template <typename T>
-struct List;
 
 template <typename T>
 struct ListNode
@@ -18,87 +16,93 @@ struct ListNode
   ListNode* m_next ;
 };
 
+
 template <typename T>
-struct ListIterator
+class ListIterator
 {
-  typedef ListIterator<T> Self;
+public:
+  using Self              = ListIterator<T>;
+  using value_type        = T;
+  using pointer           = T*;
+  using reference         = T&;
+  using difference_type   = ptrdiff_t;
+  using iterator_category = std::forward_iterator_tag;
 
-  typedef T value_type;
-  typedef T* pointer;
-  typedef T& reference;
-  typedef ptrdiff_t difference_type;
-  typedef std::forward_iterator_tag iterator_category;
-
-  friend class List <T>;
 
   ListIterator():
-    m_node(nullptr) {}
+    node_(nullptr) {}
 
   ListIterator(ListNode<T>* n):
-    m_node(n) {}
+    node_(n) {}
 
   reference operator*() const {
-    return m_node -> m_value;
+    return node_ -> m_value;
   }
 
   pointer operator->() const {
-    return *m_node;
+    return *node_;
   }
 
   Self& operator++() {
-    m_node = m_node -> m_next;
+    node_ = node_ -> m_next;
     return *this;
   }
-
+  
+  /*
   Self operator++(int) {
     Self temp = *this;
     ++(*this);
     return temp;
-  }
+  }*/
 
   bool operator==(const Self& x) const {
-    return m_node == x.m_node;
+    return node_ == x.get_node();
   }
 
   bool operator!=(const Self& x) const {
-    return m_node != x.m_node;
+    return node_ != x.get_node();
   }
 
-
-
   Self next() const {
-    if (m_node)
-      return ListIterator (m_node -> m_next);
+    if (node_)
+      return ListIterator (node_ -> m_next);
     else
       return ListIterator (nullptr);
   }
 
+  ListNode<T>* get_node() const {
+    return node_;
+  }
+
 private:
-  // The Node the iterator is pointing to
-  ListNode<T>* m_node = nullptr;
+  ListNode<T>* node_ = nullptr;
 };
 
+
 template <typename T>
-struct ListConstIterator
+class ListConstIterator
 {
-  friend class List <T>;
 public:
-  // not implemented yet
+  ListNode <T>* get_node() const {
+    return node_;
+  }
+
 private:
-  ListNode <T>* m_node = nullptr;
+  ListNode <T>* node_ = nullptr;
 };
+
 
 template <typename T>
 class List
 {
 public:
-  typedef T value_type;
-  typedef T* pointer;
-  typedef const T* const_pointer;
-  typedef T& reference;
-  typedef const T& const_reference;
-  typedef ListIterator<T> iterator;
-  typedef ListConstIterator<T> const_iterator;
+  using value_type      = T;
+  using pointer         = T*;
+  using const_pointer   = T* const;
+  using reference       = T&;
+  using const_reference = T const&;
+  using iterator        = ListIterator<T>;
+  using const_iterator  = ListConstIterator<T>;
 
   List():
     m_size{0},  
@@ -223,9 +227,9 @@ public:
   }
 
   iterator insert(iterator pos, T const& data){
-    ListNode<T>* node = new ListNode<T>(data, pos.m_node -> m_prev, pos.m_node);
-    pos.m_node -> m_prev -> m_next = node;
-    pos.m_node -> m_prev = node;
+    ListNode<T>* node = new ListNode<T>(data, pos.get_node() -> m_prev, pos.get_node());
+    pos.get_node() -> m_prev -> m_next = node;
+    pos.get_node() -> m_prev = node;
     ++m_size;
     return iterator(node);
   }
@@ -242,15 +246,12 @@ public:
     return *this;
   }
 
-
-  friend class ListIterator<T>;
-  friend class ListConstIterator<T>;
-// not implemented yet
 private:
   std::size_t m_size = 0;
   ListNode<T>* m_first = nullptr;
   ListNode<T>* m_last = nullptr;
 };
+
 
 template<typename T>
 bool operator==(List<T> const& xs, List<T> const& ys) {
@@ -273,11 +274,13 @@ bool operator==(List<T> const& xs, List<T> const& ys) {
   }
 }
 
+
 template<typename T>
 List<T> reverse(List<T> list){
   list.reverse();
   return list;
 }
+
 
 template<typename T>
 bool operator!=(List<T> const& xs, List<T> const& ys) {
