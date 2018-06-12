@@ -39,25 +39,29 @@ public:
     return node_ -> m_value;
   }
 
+  /*
   pointer operator->() const {
     return *node_;
   }
+  */
 
   Self& operator++() {
     node_ = node_ -> m_next;
     return *this;
   }
-  
-  /*
+
+
   Self operator++(int) {
     Self temp = *this;
     ++(*this);
     return temp;
-  }*/
+  }
 
+  
   bool operator==(const Self& x) const {
     return node_ == x.get_node();
   }
+
 
   bool operator!=(const Self& x) const {
     return node_ != x.get_node();
@@ -81,7 +85,7 @@ private:
 
 template <typename T>
 class ListConstIterator
-{
+{ 
 public:
   ListNode <T>* get_node() const {
     return node_;
@@ -125,6 +129,14 @@ public:
       list.m_size = 0;
       list.m_first = nullptr;
       list.m_last = nullptr;
+    }
+
+  List<T>(std::initializer_list<T> const& list):
+    m_size{0},
+    m_first{nullptr},
+    m_last{nullptr}{
+    for(auto& node : list)
+      push_back(node);
     }
 
   
@@ -285,6 +297,14 @@ List<T> reverse(List<T> list){
 template<typename T>
 bool operator!=(List<T> const& xs, List<T> const& ys) {
   return !(xs == ys);
+}
+
+
+template<typename T>
+List<T> operator+(List<T> xs, List<T> const& ys) {
+  for(auto& node : ys)
+      xs.push_back(node);
+  return xs;
 }
 
 #endif //#define BUW_LIST_HPP

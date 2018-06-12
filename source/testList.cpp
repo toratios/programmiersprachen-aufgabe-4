@@ -203,6 +203,20 @@ TEST_CASE ("move constructor", "[aufgabe 4.13]")
   REQUIRE (4 == list2.size());
 }
 
+TEST_CASE ("initializer_list constructor", "[aufgabe 4.14]")
+{
+  List <int> int_list {9 , 5 , 38 , 100};
+  REQUIRE (4 == int_list.size());
+  REQUIRE (9 == *int_list.begin());
+}
+
+TEST_CASE ("+ operator", "[aufgabe 4.14]")
+{
+  auto l = List<int>{1,2,3,4,5} + List<int>{6,7,8,9};
+  REQUIRE (9 == l.size());
+  REQUIRE (1 == l.front());
+  REQUIRE (9 == l.back());
+}
 
 int main(int argc, char *argv[])
 {
